@@ -1,7 +1,6 @@
-# Project's Name
+# Onboard-nathan-machado
+## Project's Description
 
-# Project's Description
+## Environment and tools *
 
-# Environment and tools *
-
-# Steps to run and debug *
+## Steps to run and debug *
