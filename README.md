@@ -1,6 +1,8 @@
 # Onboard-nathan-machado
 ## Project's Description
 
+A mini project containing login system and some other features, in order to integrate new members into Taqtile
+
 ## Environment and tools
 
 After clonning the project, run:
