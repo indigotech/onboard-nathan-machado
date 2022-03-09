@@ -4,10 +4,10 @@ import { Button } from '../atm.button';
 import { Input } from '../atm.input';
 
 export function LoginPage() {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = () => {
-    setLoading(true)
+    setIsLoading(true)
     // some api request here...
   };
 
@@ -16,15 +16,22 @@ export function LoginPage() {
       <form onSubmit={handleSubmit}>
         <h1>Bem vindo(a) à Taqtile!</h1>
 
-        <Input icon={FiMail} type='text' placeholder='E-mail' required />
-        <Input icon={FiLock} type='password' placeholder='Password' required />
+        <Input 
+          icon={<FiMail size={20} />}
+          type='text'
+          placeholder='E-mail' 
+          required
+        />
+        
+        <Input
+          icon={<FiLock size={20} />}
+          type='password'
+          placeholder='Password'
+          required
+        />
 
-        <Button
-          type="submit"
-          isLoading={loading}
-          loadingText='Entrando...'
-        >
-          Entrar
+        <Button type="submit">
+          { isLoading ? "Loading..." : "Login" }
         </Button>
       </form>
     </>

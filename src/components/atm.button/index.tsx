@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  isLoading?: boolean;
-  loadingText?: string;
-}
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 
-export function Button({isLoading, loadingText, children, ...rest}: ButtonProps) {
+export function Button({children, ...rest}: ButtonProps) {
 
   return (
-    <button {...rest}>{ isLoading ? loadingText : children}</button>
+    <button {...rest}>{children}</button>
   );
 };

@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { IconBaseProps } from 'react-icons';
+import React, { ReactElement, useState } from 'react';
+import { IconBaseProps, IconType } from 'react-icons';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   labelName?: string;
-  icon?: React.ComponentType<IconBaseProps>;
+  icon?: ReactElement<IconType>;
 }
 
-export function Input({labelName, icon: Icon, ...rest}: InputProps) {
+export function Input({labelName, icon, ...rest}: InputProps) {
 
   return (
     <div>
       {labelName && <label>{labelName}</label>}
-      {Icon && <Icon size={20}></Icon>}
+      {icon}
       <input {...rest} />
     </div>
   );
