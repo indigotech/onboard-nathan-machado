@@ -4,12 +4,17 @@ import { Button } from 'atomic/atm.button';
 import { Input } from 'atomic/atm.input';
 import { AlertMsg } from 'atomic/mol.alert-msg';
 import { loginSchema } from './login-validations';
+import { useMutation } from '@apollo/client';
+import { LoginMutation } from 'app/services';
 
 export function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMsg, setErrorMsg] = useState("")
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const [login] = useMutation(LoginMutation);
+
 
   const handleSubmit = (event: BaseSyntheticEvent) => {
     setIsLoading(true)
@@ -17,7 +22,15 @@ export function LoginPage() {
       .validate({ email, password })
       .then(() => {
         setErrorMsg("");
-        // some api request here..
+        login({
+          variables: { email, password },
+          onCompleted: ({ login }) => {
+            localStorage.setItem('auth_token', login.token)
+          },
+          onError: ((graphErr) => {
+            setErrorMsg(graphErr.message);
+          })
+        });
       })
       .catch((err) => {
         setErrorMsg(err.message);
