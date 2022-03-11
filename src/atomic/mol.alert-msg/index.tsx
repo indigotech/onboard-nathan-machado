@@ -1,32 +1,21 @@
-import { CSSProperties } from 'react';
-import { Style } from 'util';
-import { SpanProps, Span } from '../atm.span';
+import React from 'react';
 
-interface AlertMsgProps extends SpanProps {
-  type: 'error' | 'warning' | 'info';
+type AlertType = 'error' | 'warning' | 'info';
+interface AlertMsgProps extends React.BaseHTMLAttributes<HTMLSpanElement> {
+  type: AlertType;
 }
 
 export function AlertMsg({type, children, ...rest}: AlertMsgProps) {
 
-  const resolveColorByType: any = (type: 'error' | 'warning' | 'info') => {
-    let style
-    switch(type) {
-      case 'error':
-        style = {color: 'red'};
-        break;
-      case 'warning':
-        style = {color: 'orange'};
-        break;
-      case 'info':
-        style = {color: 'blue'};
-        break;
-    }
-    return style
-  }
+  const colorByType: Record<AlertType, { color: string }> = {
+    error: { color: 'red' },
+    warning: { color: 'orange' },
+    info: { color: 'blue' },
+  };
 
   return (
     <div>
-      <Span style={resolveColorByType(type)} {...rest}>{children}</Span>
+      <span style={colorByType[type]} {...rest}>{children}</span>
     </div>
   );
 };
