@@ -1,4 +1,4 @@
-import { BaseSyntheticEvent, useState } from 'react'
+import { BaseSyntheticEvent, useState } from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
 import { Button } from 'atomic/atm.button';
 import { Input } from 'atomic/atm.input';
@@ -9,31 +9,31 @@ import { useLogin } from 'app/hooks/login.hook';
 
 export function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
   const { login, loading } = useLogin({
     onSuccess: ({ login }) => {
       localStorage.setItem('auth_token', login.token);
       navigate('/');
-    }, 
-    onError: ((graphErr) => {
+    },
+    onError: (graphErr) => {
       setErrorMsg(graphErr.message);
-    })
+    },
   });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const getIsLoading = () => {
-    return isLoading || loading
+    return isLoading || loading;
   };
 
   const handleSubmit = (event: BaseSyntheticEvent) => {
-    setIsLoading(true)
+    setIsLoading(true);
     loginSchema
       .validate({ email, password })
       .then(() => {
-        setErrorMsg("");
+        setErrorMsg('');
         login({ email, password });
       })
       .catch((err) => {
@@ -43,14 +43,14 @@ export function LoginPage() {
         setIsLoading(false);
       });
 
-    event.preventDefault()
+    event.preventDefault();
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <h1>Bem vindo(a) à Taqtile!</h1>
 
-      <Input 
+      <Input
         name='email'
         onChange={(event) => setEmail(event.target.value)}
         value={email}
@@ -59,7 +59,7 @@ export function LoginPage() {
         placeholder='E-mail'
         required
       />
-      
+
       <Input
         name='password'
         onChange={(event) => setPassword(event.target.value)}
@@ -70,11 +70,11 @@ export function LoginPage() {
         required
       />
 
-      {errorMsg && <AlertMsg type='error' >{errorMsg}</AlertMsg>}
+      {errorMsg && <AlertMsg type='error'>{errorMsg}</AlertMsg>}
 
-      <Button type="submit" isLoading={getIsLoading()}>
+      <Button type='submit' isLoading={getIsLoading()}>
         Login
       </Button>
     </form>
   );
-};
+}

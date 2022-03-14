@@ -6,8 +6,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: ReactElement<IconType>;
 }
 
-export function Input({labelName, icon, ...rest}: InputProps) {
-
+export function Input({ labelName, icon, ...rest }: InputProps) {
   return (
     <div>
       {labelName && <label>{labelName}</label>}
@@ -15,4 +14,4 @@ export function Input({labelName, icon, ...rest}: InputProps) {
       <input {...rest} />
     </div>
   );
-};
+}

@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { Client } from './app/services';
 import { AppRoutes } from 'routes';
 
-
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -14,5 +13,5 @@ ReactDOM.render(
       </ApolloProvider>
     </BrowserRouter>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
