@@ -1,7 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { LoginMutation } from "app/services";
 
-
 interface LoginInput {
   email: string;
   password: string;
@@ -30,12 +29,9 @@ export function useLogin({ onSuccess, onError }: UseLoginParams): UseLoginRespon
     loginMutation({
       variables: { email: input.email, password: input.password },
       onCompleted: (response) => {
-        console.log(response);
         onSuccess?.(response);
       },
-      onError: (graphErr: Error) => {
-        onError?.(graphErr);
-      }
+      onError
     })
   }
 
