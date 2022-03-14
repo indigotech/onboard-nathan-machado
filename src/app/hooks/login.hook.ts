@@ -1,5 +1,5 @@
-import { useMutation } from "@apollo/client";
-import { LoginMutation } from "app/services";
+import { useMutation } from '@apollo/client';
+import { LoginMutation } from 'app/services';
 
 interface LoginInput {
   email: string;
@@ -9,7 +9,7 @@ interface LoginInput {
 interface LoginMutationResponse {
   login: {
     token: string;
-  }
+  };
 }
 
 interface UseLoginParams {
@@ -31,9 +31,9 @@ export function useLogin({ onSuccess, onError }: UseLoginParams): UseLoginRespon
       onCompleted: (response) => {
         onSuccess?.(response);
       },
-      onError
-    })
-  }
+      onError,
+    });
+  };
 
   return { login, loading };
 }

@@ -5,8 +5,7 @@ interface AlertMsgProps extends React.BaseHTMLAttributes<HTMLSpanElement> {
   type: AlertType;
 }
 
-export function AlertMsg({type, children, ...rest}: AlertMsgProps) {
-
+export function AlertMsg({ type, children, ...rest }: AlertMsgProps) {
   const colorByType: Record<AlertType, { color: string }> = {
     error: { color: 'red' },
     warning: { color: 'orange' },
@@ -15,7 +14,9 @@ export function AlertMsg({type, children, ...rest}: AlertMsgProps) {
 
   return (
     <div>
-      <span style={colorByType[type]} {...rest}>{children}</span>
+      <span style={colorByType[type]} {...rest}>
+        {children}
+      </span>
     </div>
   );
-};
+}
