@@ -4,17 +4,23 @@ import { Button } from 'atomic/atm.button';
 import { Input } from 'atomic/atm.input';
 import { AlertMsg } from 'atomic/mol.alert-msg';
 import { loginSchema } from './login-validations';
-import { useMutation } from '@apollo/client';
-import { LoginMutation } from 'app/services';
 import { useNavigate } from 'react-router-dom';
+import { useLogin } from 'app/hooks/login.hook';
 
 export function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-
-  const [login, { loading }] = useMutation(LoginMutation);
+  const { login, loading } = useLogin({
+    onSuccess: ({ login }) => {
+      localStorage.setItem('auth_token', login.token);
+      navigate('/');
+    }, 
+    onError: ((graphErr) => {
+      setErrorMsg(graphErr.message);
+    })
+  });
 
   const navigate = useNavigate()
 
@@ -28,16 +34,7 @@ export function LoginPage() {
       .validate({ email, password })
       .then(() => {
         setErrorMsg("");
-        login({
-          variables: { email, password },
-          onCompleted: ({ login }) => {
-            localStorage.setItem('auth_token', login.token);
-            navigate('/');
-          },
-          onError: ((graphErr) => {
-            setErrorMsg(graphErr.message);
-          })
-        });
+        login({ email, password });
       })
       .catch((err) => {
         setErrorMsg(err.message);
