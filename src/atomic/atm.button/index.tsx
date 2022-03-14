@@ -1,10 +1,16 @@
 import React from 'react';
+import Loading from 'react-loading'
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  isLoading: boolean;
+}
 
-export function Button({children, ...rest}: ButtonProps) {
+export function Button({isLoading, children, ...rest}: ButtonProps) {
 
   return (
-    <button {...rest}>{children}</button>
+    <button disabled={isLoading} {...rest}>
+      { isLoading && <Loading type='bars' color='#000' height={20} width={20}  /> }
+      { children }
+    </button>
   );
 };

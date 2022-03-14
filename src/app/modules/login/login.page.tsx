@@ -6,6 +6,7 @@ import { AlertMsg } from 'atomic/mol.alert-msg';
 import { loginSchema } from './login-validations';
 import { useMutation } from '@apollo/client';
 import { LoginMutation } from 'app/services';
+import { useNavigate } from 'react-router-dom';
 
 export function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,8 +14,13 @@ export function LoginPage() {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  const [login] = useMutation(LoginMutation);
+  const [login, { loading }] = useMutation(LoginMutation);
 
+  const navigate = useNavigate()
+
+  const getIsLoading = () => {
+    return isLoading || loading
+  };
 
   const handleSubmit = (event: BaseSyntheticEvent) => {
     setIsLoading(true)
@@ -25,7 +31,8 @@ export function LoginPage() {
         login({
           variables: { email, password },
           onCompleted: ({ login }) => {
-            localStorage.setItem('auth_token', login.token)
+            localStorage.setItem('auth_token', login.token);
+            navigate('/');
           },
           onError: ((graphErr) => {
             setErrorMsg(graphErr.message);
@@ -68,8 +75,8 @@ export function LoginPage() {
 
       {errorMsg && <AlertMsg type='error' >{errorMsg}</AlertMsg>}
 
-      <Button type="submit">
-        { isLoading ? "Loading..." : "Login" }
+      <Button type="submit" isLoading={getIsLoading()}>
+        Login
       </Button>
     </form>
   );
