@@ -13,8 +13,7 @@ export function LoginPage() {
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const { login, loading } = useLogin({
-    onSuccess: ({ login }) => {
-      localStorage.setItem('auth_token', login.token);
+    onSuccess: () => {
       navigate('/');
     },
     onError: (graphErr) => {
