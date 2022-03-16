@@ -2,7 +2,7 @@ import React from 'react';
 import Loading from 'react-loading';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 export function Button({ isLoading, children, ...rest }: ButtonProps) {
