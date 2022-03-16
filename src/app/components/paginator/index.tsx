@@ -11,12 +11,12 @@ interface PaginatorProps {
   limit: number;
 }
 
-export function getCurrentPage(searchParams: URLSearchParams): number {
+function getCurrentPage(searchParams: URLSearchParams): number {
   const currentPageString = searchParams.get(PAGE_PARAM);
   return currentPageString ? parseInt(currentPageString) : 1;
 }
 
-export function getCurrentOffset(searchParams: URLSearchParams): number {
+function getCurrentOffset(searchParams: URLSearchParams): number {
   return getCurrentPage(searchParams) * PAGINATION_LIMIT;
 }
 
@@ -71,3 +71,5 @@ export function Paginator({ isLoading, count, limit }: PaginatorProps) {
     </div>
   );
 }
+
+Paginator.getCurrentOffset = getCurrentOffset;

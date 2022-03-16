@@ -6,7 +6,7 @@ import { UserListQuery } from 'app/services';
 import { AlertMsg } from 'atomic/mol.alert-msg';
 import { Table } from 'atomic/mol.table';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { getCurrentOffset, Paginator } from 'app/components/paginator';
+import { Paginator } from 'app/components/paginator';
 
 interface UserData {
   id: string;
@@ -17,7 +17,7 @@ interface UserData {
 export function UserListPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [errorMsg, setErrorMsg] = useState('');
-  const currentOffset = getCurrentOffset(searchParams);
+  const currentOffset = Paginator.getCurrentOffset(searchParams);
   const { loading, error, data } = useQuery(UserListQuery, {
     variables: { offset: currentOffset, limit: PAGINATION_LIMIT },
   });
