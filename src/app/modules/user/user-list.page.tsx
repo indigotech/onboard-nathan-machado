@@ -7,6 +7,7 @@ import { AlertMsg } from 'atomic/mol.alert-msg';
 import { Table } from 'atomic/mol.table';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Paginator } from 'app/components/paginator';
+import { Button } from 'atomic/atm.button';
 
 interface UserData {
   id: string;
@@ -36,6 +37,8 @@ export function UserListPage() {
   return (
     <>
       <h1>Users list</h1>
+
+      <Button onClick={() => navigate('new')}>New User</Button>
 
       <Table isLoading={loading} titles={USER_LIST_TITLES}>
         {data?.users?.nodes.map(({ id, name, email }: UserData) => {
