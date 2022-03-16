@@ -1,10 +1,12 @@
 import React from 'react';
+import Loading from 'react-loading';
 
 interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
   titles: string[];
+  isLoading?: boolean;
 }
 
-export function Table({ titles, children }: TableProps) {
+export function Table({ isLoading, titles, children }: TableProps) {
   return (
     <div>
       <table>
@@ -15,7 +17,7 @@ export function Table({ titles, children }: TableProps) {
             })}
           </tr>
         </thead>
-        <tbody>{children}</tbody>
+        <tbody>{isLoading ? <Loading type='bars' color='#000' height={20} width={20} /> : children}</tbody>
       </table>
     </div>
   );

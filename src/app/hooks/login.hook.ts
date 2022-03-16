@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+import { AUTH_TOKEN_KEY } from 'app/constants';
 import { LoginMutation } from 'app/services';
 
 interface LoginInput {
@@ -28,7 +29,8 @@ export function useLogin({ onSuccess, onError }: UseLoginParams): UseLoginRespon
   const login = (input: LoginInput) => {
     loginMutation({
       variables: { email: input.email, password: input.password },
-      onCompleted: (response) => {
+      onCompleted: (response: LoginMutationResponse) => {
+        localStorage.setItem(AUTH_TOKEN_KEY, response.login.token);
         onSuccess?.(response);
       },
       onError,
