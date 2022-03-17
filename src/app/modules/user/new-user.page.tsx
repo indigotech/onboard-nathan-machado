@@ -1,8 +1,11 @@
+import { ApolloError, useMutation } from '@apollo/client';
+import { NewUserMutation } from 'app/services';
 import { Button } from 'atomic/atm.button';
 import { Input } from 'atomic/atm.input';
 import { Select } from 'atomic/atm.select';
 import { AlertMsg } from 'atomic/mol.alert-msg';
 import { BaseSyntheticEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { newUserSchema } from './new-user.validation';
 
 interface NewUserData {
@@ -20,6 +23,7 @@ const userRoles = [
 ];
 
 export function NewUserPage() {
+  const navigate = useNavigate();
   const [errorMsg, setErrorMsg] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [formData, setFormData] = useState<NewUserData>({
@@ -30,6 +34,7 @@ export function NewUserPage() {
     password: '',
     role: '',
   });
+  const [newUserMutation, { loading }] = useMutation(NewUserMutation);
 
   const handleInputChange = (event: BaseSyntheticEvent) => {
     setFormData((oldValues) => ({ ...oldValues, [event.target.name]: event.target.value }));
@@ -41,8 +46,22 @@ export function NewUserPage() {
 
   const handleSubmit = (event: BaseSyntheticEvent) => {
     event.preventDefault();
+    try {
+      setErrorMsg('');
+      newUserSchema.validateSync({ confirmPassword, ...formData });
 
-    newUserSchema.validateSync({ confirmPassword, ...formData });
+      newUserMutation({
+        variables: { data: formData },
+        onCompleted: () => {
+          navigate('/users');
+        },
+        onError: (error: ApolloError) => {
+          setErrorMsg(error.message);
+        },
+      });
+    } catch (err: any) {
+      setErrorMsg(err?.message);
+    }
   };
 
   return (
@@ -118,8 +137,8 @@ export function NewUserPage() {
 
       {errorMsg && <AlertMsg type='error'>{errorMsg}</AlertMsg>}
 
-      <Button type='submit' isLoading={false}>
-        Login
+      <Button type='submit' isLoading={loading}>
+        Create User
       </Button>
     </form>
   );
