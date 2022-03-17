@@ -9,7 +9,7 @@ const yearsAgoFromToday = (years: number): number => {
 export const newUserSchema = yup.object().shape({
   name: yup.string().required('No name provided.'),
   email: yup.string().email('Invalid e-mail format.').required('No e-mail provided.'),
-  phone: yup.string().matches(BR_PHONE_REGEX, 'Phone must be formated! Example: (11) 9 8765-4321'),
+  phone: yup.string().matches(BR_PHONE_REGEX, 'Phone must have only digits.'),
   birthDate: yup
     .string()
     .test(

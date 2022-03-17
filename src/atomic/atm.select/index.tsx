@@ -18,12 +18,16 @@ export function Select({ options, placeholder, labelName, icon, ...rest }: Selec
     <div>
       {labelName && <label>{labelName}</label>}
       {icon}
-      <select {...rest}>
-        <option value='' disabled selected>
+      <select value='' {...rest}>
+        <option value='' disabled>
           {placeholder || 'Select your option'}
         </option>
         {options.map(({ name, value }) => {
-          return <option value={value}>{name || value}</option>;
+          return (
+            <option key={value} value={value}>
+              {name || value}
+            </option>
+          );
         })}
       </select>
     </div>

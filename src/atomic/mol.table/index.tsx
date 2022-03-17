@@ -13,7 +13,7 @@ export function Table({ isLoading, titles, children }: TableProps) {
         <thead>
           <tr>
             {titles.map((title) => {
-              return <th>{title}</th>;
+              return <th key={title}>{title}</th>;
             })}
           </tr>
         </thead>
