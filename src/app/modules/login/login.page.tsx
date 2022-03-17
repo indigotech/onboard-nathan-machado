@@ -3,7 +3,7 @@ import { FiMail, FiLock } from 'react-icons/fi';
 import { Button } from 'atomic/atm.button';
 import { Input } from 'atomic/atm.input';
 import { AlertMsg } from 'atomic/mol.alert-msg';
-import { loginSchema } from './login-validations';
+import { loginSchema } from './login.validation';
 import { useNavigate } from 'react-router-dom';
 import { useLogin } from 'app/hooks/login.hook';
 
