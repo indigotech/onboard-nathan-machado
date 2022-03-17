@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import { useLogin } from 'app/hooks/login.hook';
 
 export function LoginPage() {
-  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -23,24 +22,14 @@ export function LoginPage() {
 
   const navigate = useNavigate();
 
-  const getIsLoading = () => {
-    return isLoading || loading;
-  };
-
   const handleSubmit = (event: BaseSyntheticEvent) => {
-    setIsLoading(true);
-    loginSchema
-      .validate({ email, password })
-      .then(() => {
-        setErrorMsg('');
-        login({ email, password });
-      })
-      .catch((err) => {
-        setErrorMsg(err.message);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    try {
+      setErrorMsg('');
+      loginSchema.validateSync({ email, password });
+      login({ email, password });
+    } catch (err: any) {
+      setErrorMsg(err?.message);
+    }
 
     event.preventDefault();
   };
@@ -71,7 +60,7 @@ export function LoginPage() {
 
       {errorMsg && <AlertMsg type='error'>{errorMsg}</AlertMsg>}
 
-      <Button type='submit' isLoading={getIsLoading()}>
+      <Button type='submit' isLoading={loading}>
         Login
       </Button>
     </form>
