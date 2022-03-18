@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import { Color } from './colors';
-import { FontFamily, FontSize, FontWeight } from './typography';
+import { FontFamily, FontSize, FontWeight, Spacing } from 'app/styles';
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  body {
+  html {
     font-family: ${FontFamily.Primary};
     font-size: ${FontSize.Medium};
     font-weight: ${FontWeight.Light};
@@ -19,13 +19,14 @@ export const GlobalStyle = createGlobalStyle`
   h1, h2, h3 {
     font-size: ${FontSize.XXLarge};
     font-weight: ${FontWeight.Regular};
-    color: ${Color.TextTitle};
+    color: ${Color.Secondary};
+    margin: ${Spacing.Medium} ${Spacing.Small};
   }
 
   h4, h5 {
     font-size: ${FontSize.XLarge};
     font-weight: ${FontWeight.Regular};
-    color: ${Color.TextTitle};
+    color: ${Color.Secondary};
   }
 
   h6 {
@@ -38,8 +39,16 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: ${FontWeight.SemiBold};
   }
 
+  label {
+    font-weight: ${FontWeight.Regular};
+  }
+
   button {
     cursor: pointer;
+
+    :disabled {
+      cursor: not-allowed;
+    }
   }
 
 `;

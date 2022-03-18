@@ -1,4 +1,4 @@
-import { GlobalStyle } from 'app/styles/global';
+import { GlobalStyle } from 'app/styles';
 import { Outlet } from 'react-router-dom';
 
 function App() {

@@ -15,11 +15,3 @@ export enum FontWeight {
   Regular = 400,
   SemiBold = 600,
 }
-
-export enum Spacing {
-  XSmall = '4px',
-  Small = '8px',
-  Medium = '12px',
-  Large = '24px',
-  XLarge = '36px',
-}
