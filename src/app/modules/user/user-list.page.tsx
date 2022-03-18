@@ -34,6 +34,10 @@ export function UserListPage() {
     }
   }, [error]);
 
+  const handleUserRowClick = (id: string) => {
+    navigate(`${id}`);
+  };
+
   return (
     <>
       <h1>Users list</h1>
@@ -42,7 +46,7 @@ export function UserListPage() {
 
       <Table isLoading={loading} titles={USER_LIST_TITLES}>
         {data?.users?.nodes.map(({ id, name, email }: UserData) => {
-          return <UserRow key={id} name={name} email={email} />;
+          return <UserRow onClick={() => handleUserRowClick(id)} key={id} name={name} email={email} />;
         })}
       </Table>
 
