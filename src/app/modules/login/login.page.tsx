@@ -43,7 +43,7 @@ export function LoginPage() {
   return (
     <PageContainerStyled>
       <h1>Bem vindo(a) à Taqtile!</h1>
-      <Form onSubmit={handleSubmit} style={{ width: '320px' }}>
+      <Form onSubmit={handleSubmit}>
         <Input
           name='email'
           onChange={(event) => setEmail(event.target.value)}
