@@ -1,5 +1,6 @@
 import React from 'react';
-import Loading from 'react-loading';
+import { Spacing } from 'app/styles';
+import { ButtonStyled, LoadingStyled } from './style';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
@@ -7,9 +8,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export function Button({ isLoading, children, ...rest }: ButtonProps) {
   return (
-    <button disabled={isLoading} {...rest}>
-      {isLoading && <Loading type='bars' color='#000' height={20} width={20} />}
-      {children}
-    </button>
+    <ButtonStyled disabled={isLoading} {...rest}>
+      {isLoading ? <LoadingStyled type='bars' height={Spacing.Large} width={Spacing.Large} /> : children}
+    </ButtonStyled>
   );
 }
